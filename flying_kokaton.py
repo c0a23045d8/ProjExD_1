@@ -41,16 +41,18 @@ def main():
         #演習後
         my = (0)
         if not key_lst[pg.K_RIGHT]:
-            mx = (-1)
+            mx = -1
         if key_lst[pg.K_UP]:
-            my = (-1)
+            my -= 1
         if key_lst[pg.K_DOWN]:
-            my = (+1)
+            my += 1
         if key_lst[pg.K_RIGHT]:
-            mx = (+1)
+            mx += 1
         if key_lst[pg.K_LEFT]:
-            mx = (-1)
+            mx -= 1
         krect.move_ip((mx, my))
+        mx = 0
+        my = 0
         screen.blit(koukaton_3, krect) #screen syrfaceにkoukatonイメージを張り付ける
         pg.display.update()
         tmr += 1        
