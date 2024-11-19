@@ -7,6 +7,8 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 def main():
     pg.display.set_caption("はばたけ！こうかとん")
+    mx = (0)
+    my = (0)
     screen = pg.display.set_mode((800, 600))
     clock  = pg.time.Clock()
     bg_img = pg.image.load("fig/pg_bg.jpg") # 背景画像Surfaceを作成
@@ -25,16 +27,30 @@ def main():
         screen.blit(bg_img, [-x+3200, 0])
         screen.blit(fbg_img, [-x+4800, 0])
         key_lst = pg.key.get_pressed()
+        #演習前
+        # if key_lst[pg.K_UP]:
+        #     krect.move_ip((0, -1))
+        # if key_lst[pg.K_DOWN]:
+        #     krect.move_ip((0, +1))
+        # if key_lst[pg.K_RIGHT]:
+        #     krect.move_ip((+1, 0))
+        # if key_lst[pg.K_LEFT]:
+        #     krect.move_ip((-1, 0))
+        # if not key_lst[pg.K_RIGHT]:
+        #     krect.move_ip((-1, 0))
+        #演習後
+        my = (0)
+        if not key_lst[pg.K_RIGHT]:
+            mx = (-1)
         if key_lst[pg.K_UP]:
-            krect.move_ip((0, -1))
+            my = (-1)
         if key_lst[pg.K_DOWN]:
-            krect.move_ip((0, +1))
+            my = (+1)
         if key_lst[pg.K_RIGHT]:
-            krect.move_ip((+1, 0))
+            mx = (+1)
         if key_lst[pg.K_LEFT]:
-            krect.move_ip((-1, 0))
-        if not any(key_lst):
-            krect.move_ip((-1, 0))
+            mx = (-1)
+        krect.move_ip((mx, my))
         screen.blit(koukaton_3, krect) #screen syrfaceにkoukatonイメージを張り付ける
         pg.display.update()
         tmr += 1        
