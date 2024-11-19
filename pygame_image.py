@@ -10,15 +10,32 @@ def main():
     screen = pg.display.set_mode((800, 600))
     clock  = pg.time.Clock()
     bg_img = pg.image.load("fig/pg_bg.jpg") # 背景画像Surfaceを作成
+    fbg_img = pg.transform.flip(bg_img, True, False) # flipで反転した背景画像
     koukaton_3 = pg.image.load("fig/3.png")
     koukaton_3 = pg.transform.flip(koukaton_3, True, False)
+    krect = koukaton_3.get_rect() #こうかとんRectを取得する
+    krect.center = 300, 200
     tmr = 0
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: return
-
-        screen.blit(bg_img, [-tmr%-800, 0]) #screen surfaceに背景画像Surfaceを張り付ける
-        screen.blit(koukaton_3, [300, 200]) #screen syrfaceにkoukatonイメージを張り付ける
+        x = tmr%3200 #練習7-2
+        screen.blit(bg_img, [-x, 0]) #screen surfaceに背景画像Surfaceを張り付ける
+        screen.blit(fbg_img, [-x+1600 , 0])
+        screen.blit(bg_img, [-x+3200, 0])
+        screen.blit(fbg_img, [-x+4800, 0])
+        key_lst = pg.key.get_pressed()
+        if key_lst[pg.K_UP]:
+            krect.move_ip((0, -1))
+        if key_lst[pg.K_DOWN]:
+            krect.move_ip((0, +1))
+        if key_lst[pg.K_RIGHT]:
+            krect.move_ip((+1, 0))
+        if key_lst[pg.K_LEFT]:
+            krect.move_ip((-1, 0))
+        if not any(key_lst):
+            krect.move_ip((-1, 0))
+        screen.blit(koukaton_3, krect) #screen syrfaceにkoukatonイメージを張り付ける
         pg.display.update()
         tmr += 1        
         clock.tick(200)
